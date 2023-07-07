@@ -1,4 +1,4 @@
-import { Application, h, puppeteer, Router } from "./deps.ts";
+import { Application,  puppeteer, Router } from "./deps.ts";
 
 
 const BROWSERLESS_TOKEN = Deno.env.get("BROWSERLESS_TOKEN");
