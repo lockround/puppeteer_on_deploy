@@ -47,7 +47,7 @@ router.get("/tiktok", async (ctx) => {
   });
   try {
     const page = await browser.newPage();
-    await page.goto('https://www.tiktok.com/@eyeinspired/video/7252706573519310122',, { waitUntil: "domcontentloaded" })
+    await page.goto('https://www.tiktok.com/@eyeinspired/video/7252706573519310122', { waitUntil: "domcontentloaded" })
   // await page.waitForTimeout(5000)
   await page.click('[data-e2e=modal-close-inner-button]')
   const data = await page.evaluate(() => document.querySelector('*').outerHTML);
