@@ -47,7 +47,7 @@ router.get("/tiktok", async (ctx) => {
   });
   try {
     const page = await browser.newPage();
-    await page.goto('https://www.tiktok.com/@eyeinspired/video/7252706573519310122', { waitUntil: "domcontentloaded" })
+    await page.goto(url.href || 'https://www.tiktok.com/@eyeinspired/video/7252706573519310122', { waitUntil: "domcontentloaded" })
   // await page.waitForTimeout(5000)
   const data = await page.evaluate(() => document.querySelector('*').outerHTML);
   let $ = cheerio.load(data);
