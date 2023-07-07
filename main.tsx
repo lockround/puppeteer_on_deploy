@@ -61,10 +61,11 @@ let comments = {}
     let comment = $(el).text()
     comments[i] = {...comments[i], comment}
   })
-  
-    const res = comments//await page.screenshot() as Uint8Array;
+  const res = await page.screenshot() as Uint8Array;
+    console.log(comments)
+    // const res = comments//await page.screenshot() as Uint8Array;
     ctx.response.body = res;
-    ctx.response.type = "text";
+    ctx.response.type = "png";
   } finally {
     await browser.close();
   }
