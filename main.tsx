@@ -1,4 +1,4 @@
-import { Application, h, puppeteer, renderToString, Router } from "./deps.ts";
+import { Application, h, puppeteer, Router } from "./deps.ts";
 import Layout from "./components/Layout.tsx";
 
 const BROWSERLESS_TOKEN = Deno.env.get("BROWSERLESS_TOKEN");
@@ -20,35 +20,8 @@ router.get("/", (ctx) => {
       return;
     }
   }
-  const r = renderToString(
-    <Layout title="Screenshot!">
-      <p>
-        Use this service to take screenshots of websites. Enter the url of the
-        site below, and press submit. Loading of the image might take a moment.
-      </p>
-      <form action="/" method="GET">
-        <label for="url">URL:</label>
-        <input
-          id="url"
-          name="url"
-          type="url"
-          placeholder="URL"
-          value={url?.href ?? ""}
-        >
-        </input>
-        <button type="submit">Submit</button>
-      </form>
-      {url !== null
-        ? (
-          <div>
-            <h3>{url.href}</h3>
-            <img src={`/screenshot.png?url=${url.href}`} />
-          </div>
-        )
-        : null}
-    </Layout>,
-  );
-  ctx.response.body = `<!DOCTYPE html>${r}`;
+  
+  ctx.response.body = `<!DOCTYPE html>Hello World`;
   ctx.response.type = "text/html; charset=utf-8";
 });
 
