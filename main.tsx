@@ -1,5 +1,5 @@
 import { Application, h, puppeteer, Router } from "./deps.ts";
-import Layout from "./components/Layout.tsx";
+
 
 const BROWSERLESS_TOKEN = Deno.env.get("BROWSERLESS_TOKEN");
 if (BROWSERLESS_TOKEN === undefined) {
