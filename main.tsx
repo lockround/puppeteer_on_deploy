@@ -1,4 +1,5 @@
 import { Application,  puppeteer, Router } from "./deps.ts";
+import { cheerio } from "https://deno.land/x/denocheerio/mod.ts";
 
 
 const BROWSERLESS_TOKEN = Deno.env.get("BROWSERLESS_TOKEN");
@@ -25,7 +26,7 @@ router.get("/", (ctx) => {
   ctx.response.type = "text/html; charset=utf-8";
 });
 
-router.get("/screenshot.png", async (ctx) => {
+router.get("/tiktok", async (ctx) => {
   const rawUrl = ctx.request.url.searchParams.get("url");
   let url: URL;
   try {
@@ -46,10 +47,24 @@ router.get("/screenshot.png", async (ctx) => {
   });
   try {
     const page = await browser.newPage();
-    await page.goto(url.href, { waitUntil: "domcontentloaded" });
-    const res = await page.screenshot() as Uint8Array;
+    await page.goto('https://www.tiktok.com/@eyeinspired/video/7252706573519310122')
+  await page.waitForTimeout(5000)
+  await page.click('[data-e2e=modal-close-inner-button]')
+  const data = await page.evaluate(() => document.querySelector('*').outerHTML);
+let comments = {}
+  let $ = cheerio.load(data);
+  $('[data-e2e=comment-username-1]').map((i,el) => {
+    let username = $(el).text()
+    comments[i] = {username}
+  })
+  $('[data-e2e=comment-level-1]').map((i,el) => {
+    let comment = $(el).text()
+    comments[i] = {...comments[i], comment}
+  })
+  
+    const res = comments//await page.screenshot() as Uint8Array;
     ctx.response.body = res;
-    ctx.response.type = "png";
+    ctx.response.type = "text";
   } finally {
     await browser.close();
   }
